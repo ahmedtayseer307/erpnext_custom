@@ -32,7 +32,7 @@ app_license = "MIT"
 
 # include js in doctype views
 # doctype_js = {"doctype" : "public/js/doctype.js"}
-# doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
+doctype_js = {"Purchase Order" : "public/js/purchase_order.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 
@@ -95,13 +95,27 @@ app_license = "MIT"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-#	"*": {
-#		"on_update": "method",
-#		"on_cancel": "method",
-#		"on_trash": "method"
-#	}
-# }
+doc_events = {
+	"Attendance": {
+		"validate":"erpnext_custom.erp.doc_event.attendance_event.clac_hours"
+	},
+	"Employee": {
+		# "validate": "erpnext_custome.erpnext_custome.doc_event.employee_event.validate_reason_for_leaving",
+		"validate": "erpnext_custome.erpnext_custome.doc_event.employee_event.create_task",	},
+    "Attendance": {
+        "validate": "erpnext_custome.erpnext_custome.doc_event.attendance_event.clac_hours",
+	},
+    "Sales Invoice": {
+		"validate":"erpnext_custome.erpnext_custome.doc_event.sales_invoice_event.validate_add_note_toremarksss",
+        "validate":"erpnext_custome.erpnext_custome.doc_event.sales_invoice_event.validate_payment_is_pos",
+        },
+    "Purchase Invoice": {
+		"on_submit": "erpnext_custom.erpnext_custom.event.purchase_invoice_event.create_purchase_receipt"
+	},
+    "Material Request":{
+   	 	"on_submit": "erpnext_custom.erpnext_custom.event.material_request_event.create_stock_entry"
+	}
+}
 
 # Scheduled Tasks
 # ---------------
